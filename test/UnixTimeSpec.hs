@@ -27,7 +27,7 @@ spec :: Spec
 spec = do
     describe "formatUnixTime" $
         prop "behaves like the model" $ \ut -> do
-            currentTimeZone <- getCurrentTimeZone
+            currentTimeZone <- getCurrentTime >>= getTimeZone
             let ours = formatUnixTime mailDateFormat ut
                 model = formatMailModel (toUTCTime ut) currentTimeZone
             ours `shouldBe` model
